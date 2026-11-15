@@ -123,3 +123,4 @@ footer{color:var(--muted);font-size:13px;padding:28px 16px 12px;text-align:cente
 .page .ptable td,.page .ptable th{font-size:14px}
 .page table.ptable{display:block;overflow-x:auto}
 .score{white-space:nowrap}
+.notice.error{background:#fdecea;color:#8a1c1c}

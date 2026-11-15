@@ -69,7 +69,7 @@
     [a, k, m].forEach(function (el) { el.addEventListener("input", upd); el.addEventListener("change", upd); }); upd();
   }
 
-  // Quote and business forms. Posts JSON to data-endpoint (e.g. a Formspree form URL) when configured.
+  // Quote and business forms. Saves submissions to Supabase via data-endpoint.
   var form = document.getElementById("leadform");
   if (form) {
     var itf = document.getElementById("itemField");
@@ -78,12 +78,23 @@
       e.preventDefault();
       var es = form.dataset.lang === "es";
       var ok = document.getElementById("leadok");
+      var btn = form.querySelector('button[type="submit"]');
       var data = {}; new FormData(form).forEach(function (val, key) { data[key] = val; });
-      function show(msg) { ok.textContent = msg; ok.hidden = false; }
+      function show(msg, bad) { ok.textContent = msg; ok.hidden = false; ok.classList.toggle("error", !!bad); }
+      var thanks = form.dataset.type === "listing"
+        ? (es ? "¡Gracias! Revisaremos su información y le escribiremos pronto." : "Thanks! We'll review your listing and get back to you soon.")
+        : (es ? "¡Listo! Recibirá respuesta en 1–2 días hábiles." : "Done! Expect replies within 1–2 business days.");
+      if (data.company_website) { form.reset(); show(thanks); return; }
       if (!form.dataset.endpoint) { show(es ? "Gracias. Esta es una vista previa: el formulario se activará al publicar el sitio." : "Thanks. This is a preview: the form goes live when the site launches."); return; }
-      fetch(form.dataset.endpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(data) })
-        .then(function (r) { if (!r.ok) throw 0; form.reset(); show(es ? "¡Listo! Recibirá respuesta en 1–2 días hábiles." : "Done! Expect replies within 1–2 business days."); if (window.gtag) gtag("event", "generate_lead", { form: data.form }); })
-        .catch(function () { show(es ? "No se pudo enviar. Intente de nuevo." : "Couldn't send. Please try again."); });
+      // Saves the submission to Supabase (insert-only public key; visitors can't read entries).
+      var skip = { company_website: 1, name: 1, email: 1, phone: 1, date: 1, lang: 1, site: 1 };
+      var details = {}; Object.keys(data).forEach(function (k) { if (!skip[k] && data[k] !== "") details[k] = data[k]; });
+      var row = { site: form.dataset.site, form_type: form.dataset.type, language: es ? "es" : "en", name: data.name || null, email: data.email, phone: data.phone || null, event_date: data.date || null, details: details };
+      if (btn) btn.disabled = true;
+      fetch(form.dataset.endpoint, { method: "POST", headers: { "Content-Type": "application/json", "apikey": form.dataset.key, "Prefer": "return=minimal" }, body: JSON.stringify(row) })
+        .then(function (r) { if (!r.ok) throw 0; form.reset(); show(thanks); if (window.gtag) gtag("event", "generate_lead", { form: data.form }); })
+        .catch(function () { show(es ? "No se pudo enviar. Intente de nuevo." : "Couldn't send. Please try again.", true); })
+        .then(function () { if (btn) btn.disabled = false; });
     });
   }
 })();
