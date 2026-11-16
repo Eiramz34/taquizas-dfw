@@ -72,6 +72,10 @@
   // Quote and business forms. Saves submissions to Supabase via data-endpoint.
   var form = document.getElementById("leadform");
   if (form) {
+    var t0 = Date.now();
+    // No event dates in the past (uses the visitor's local date).
+    var dt = form.querySelector('input[type="date"]');
+    if (dt) { var now = new Date(); dt.min = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10); }
     var itf = document.getElementById("itemField");
     try { var v = new URLSearchParams(location.search).get("caterer"); if (v && itf) itf.value = v; } catch (e) {}
     form.addEventListener("submit", function (e) {
@@ -84,7 +88,8 @@
       var thanks = form.dataset.type === "listing"
         ? (es ? "¡Gracias! Revisaremos su información y le escribiremos pronto." : "Thanks! We'll review your listing and get back to you soon.")
         : (es ? "¡Listo! Recibirá respuesta en 1–2 días hábiles." : "Done! Expect replies within 1–2 business days.");
-      if (data.company_website) { form.reset(); show(thanks); return; }
+      // Spam traps: hidden honeypot field, or a form sent faster than a person can fill it.
+      if (data.company_website || Date.now() - t0 < 2500) { form.reset(); show(thanks); return; }
       if (!form.dataset.endpoint) { show(es ? "Gracias. Esta es una vista previa: el formulario se activará al publicar el sitio." : "Thanks. This is a preview: the form goes live when the site launches."); return; }
       // Saves the submission to Supabase (insert-only public key; visitors can't read entries).
       var skip = { company_website: 1, name: 1, email: 1, phone: 1, date: 1, lang: 1, site: 1 };
