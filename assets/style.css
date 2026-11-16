@@ -128,3 +128,10 @@ footer{color:var(--muted);font-size:13px;padding:28px 16px 12px;text-align:cente
 /* SEO pass: card titles as h2 where they are the first level under the page h1; hide empty ad placeholders */
 .card h2{font-size:19px;margin:0}
 .ad-placeholder{display:none}
+
+/* Accessibility pass (Nov 16): skip link, visible keyboard focus, readable ad label */
+.skip{position:absolute;left:8px;top:-60px;z-index:100;background:var(--ink);color:#fff;padding:10px 14px;border-radius:10px;font-weight:600;text-decoration:none}
+.skip:focus{top:8px}
+main{scroll-margin-top:70px}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ad-label{color:#6f736f}

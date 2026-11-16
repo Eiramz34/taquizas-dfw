@@ -17,23 +17,24 @@
 
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap brandrow">
   <a class="logo" href="../" aria-label="Home"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17a9 9 0 0 1 18 0z"/><path d="M8 13l1 1M12 11v1.5M16 13l-1 1"/></svg></a>
   <a class="brand" href="../">Taquizas DFW<small>Taco catering & taqueros in Dallas–Fort Worth</small></a>
   <a class="langtoggle" href="../es/agregue-su-negocio/" hreflang="es" lang="es">Español</a>
 </div></header>
-<main class="wrap"><section class="page"><h1>Add, claim or update your business</h1>
+<main class="wrap" id="main"><section class="page"><h1>Add, claim or update your business</h1>
 <p>Taqueros and taco caterers: families searching for a taquiza in Dallas–Fort Worth find you here, in English and Spanish.</p>
 <div class="plan"><b>Free listing</b><div class="price">$0</div><p>Name, city, services, prices and a link to your page. Confirm your details and get a "Verified by business" badge.</p></div>
 <div class="plan feature"><b>Featured</b><div class="price">$39<span>/month</span></div><p>Top of your city and service pages, photos, a call button, and first look at quote requests in your area. No commission, no per-lead fees, cancel anytime.</p></div>
 <form id="leadform" data-endpoint="https://dwpnqxpmvqwdfnbrsvud.supabase.co/rest/v1/form_submissions" data-key="sb_publishable_c0AsIwtwpAQ-UFyj4vbTgA_mrB0vnd6" data-site="taquizas" data-type="listing" data-lang="en"><div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden"><label>Leave this field empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div><input type="hidden" name="form" value="business-submission"><input type="hidden" name="site" value="taquizas-dfw"><input type="hidden" name="caterer" id="itemField">
-  <div class="field"><label for="v-name">Business name</label><input id="v-name" name="business" required></div>
-  <div class="field"><label for="f-city">City</label><input id="f-city" name="city" required></div>
+  <div class="field"><label for="v-name">Business name</label><input type="text" id="v-name" name="business" autocomplete="organization" required></div>
+  <div class="field"><label for="f-city">City</label><input type="text" id="f-city" name="city" required></div>
   <div class="field"><label>Services</label><label class="consent"><input type="checkbox" name="style_onsite"> Taquero on site</label><label class="consent"><input type="checkbox" name="style_truck"> Taco truck</label><label class="consent"><input type="checkbox" name="style_buffet"> Staffed buffet</label><label class="consent"><input type="checkbox" name="style_dropoff"> Drop-off</label><label class="consent"><input type="checkbox" name="style_taquiza"> Taquiza package</label></div>
   <div class="field"><label for="v-det">Prices, minimums, meats, areas served</label><textarea id="v-det" name="details" rows="3"></textarea></div>
   <div class="grid2"><div class="field"><label for="v-email">Email</label><input id="v-email" name="email" type="email" required></div><div class="field"><label for="v-phone">Phone</label><input id="v-phone" name="phone" type="tel"></div></div>
   <label class="consent"><input type="checkbox" name="featured"> I'm interested in Featured ($39/month)</label>
-  <button class="btn primary wide" type="submit">Submit</button><div class="notice" id="leadok" hidden></div></form></section></main>
+  <button class="btn primary wide" type="submit">Submit</button><div class="notice" id="leadok" role="status" aria-live="polite" hidden></div></form></section></main>
 <footer class="wrap"><p>Prices and menus change. Every listing shows its source and check date; confirm with the caterer before you book.</p>
 <p>Need a venue that lets you bring your own taquero? <a href="https://bringyourcatererdfw.com/">Bring Your Caterer DFW →</a></p>
 <p class="footlinks"><a href="../cities/">Cities</a> · <a href="../add-your-business/">Add your business</a> · <a href="../about/">About</a> · <a href="../privacy/">Privacy</a> · <a href="../contact/">Contact</a></p>
