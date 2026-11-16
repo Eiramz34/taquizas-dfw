@@ -124,3 +124,7 @@ footer{color:var(--muted);font-size:13px;padding:28px 16px 12px;text-align:cente
 .page table.ptable{display:block;overflow-x:auto}
 .score{white-space:nowrap}
 .notice.error{background:#fdecea;color:#8a1c1c}
+
+/* SEO pass: card titles as h2 where they are the first level under the page h1; hide empty ad placeholders */
+.card h2{font-size:19px;margin:0}
+.ad-placeholder{display:none}
